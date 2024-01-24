@@ -54,3 +54,7 @@ Generated Activation Code: 5ExlwWqGCFTNnTLI6lwCCgqlwZcQKQTITGnMIvZiFCY=
 
 Activation Code is valid.
 ```
+
+## Note
+Activation code might not be same when OpenSSL version is different.  
+This is specially true, if you run on `Windows` vs `Linux` with different version of `OpenSSL`.
