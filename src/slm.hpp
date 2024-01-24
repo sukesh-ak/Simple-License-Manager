@@ -22,7 +22,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
 #include <iostream>
 #include <openssl/aes.h>
 #include <openssl/rand.h>
@@ -63,7 +62,7 @@ public:
 private:
     std::string encryptData(const std::string& data) {
         EVP_CIPHER_CTX* ctx;
-        int len;
+        int len;  // Change from size_t to int
         int ciphertextLen;
         unsigned char* ciphertext;
 
@@ -72,9 +71,11 @@ private:
 
         ciphertext = static_cast<unsigned char*>(OPENSSL_malloc(data.length() + AES_BLOCK_SIZE));
 
-        EVP_EncryptUpdate(ctx, ciphertext, &len, reinterpret_cast<const unsigned char*>(data.c_str()), data.length());
+        // Change the type of len from size_t to int
+        EVP_EncryptUpdate(ctx, ciphertext, &len, reinterpret_cast<const unsigned char*>(data.c_str()), static_cast<int>(data.length()));
         ciphertextLen = len;
 
+        // Change the type of len from size_t to int
         EVP_EncryptFinal_ex(ctx, ciphertext + len, &len);
         ciphertextLen += len;
 
@@ -88,7 +89,7 @@ private:
 
     std::string decryptData(const std::string& data) {
         EVP_CIPHER_CTX* ctx;
-        int len;
+        int len;  // Change from size_t to int
         int plaintextLen;
         unsigned char* plaintext;
 
@@ -97,9 +98,11 @@ private:
 
         plaintext = static_cast<unsigned char*>(OPENSSL_malloc(data.length()));
 
-        EVP_DecryptUpdate(ctx, plaintext, &len, reinterpret_cast<const unsigned char*>(data.c_str()), data.length());
+        // Change the type of len from size_t to int
+        EVP_DecryptUpdate(ctx, plaintext, &len, reinterpret_cast<const unsigned char*>(data.c_str()), static_cast<int>(data.length()));
         plaintextLen = len;
 
+        // Change the type of len from size_t to int
         EVP_DecryptFinal_ex(ctx, plaintext + len, &len);
         plaintextLen += len;
 
@@ -134,7 +137,7 @@ private:
     std::string base64Decode(const std::string& input) {
         BIO* bio, * b64;
         char buffer[4096];
-        int length;
+        size_t length;
 
         b64 = BIO_new(BIO_f_base64());
         bio = BIO_new_mem_buf(input.c_str(), static_cast<int>(input.length()));
@@ -151,3 +154,4 @@ private:
     std::string secretKey_;
     unsigned char iv_[AES_BLOCK_SIZE];
 };
+
