@@ -1,5 +1,5 @@
-# Simple License Manager
-A simple license manager implementation using OpenSSL
+# Simple License Manager - SLM
+A Header-Only Simple License Manager implementation using OpenSSL
 
 ## Setup, Install & Compile
 ```bash
