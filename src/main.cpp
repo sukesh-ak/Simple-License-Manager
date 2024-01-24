@@ -5,10 +5,14 @@
 #include <openssl/sha.h>
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
+#include <cstring>
 
 class LicenseManager {
 public:
-    LicenseManager(const std::string& secretKey) : secretKey_(secretKey) {}
+    LicenseManager(const std::string& secretKey) : secretKey_(secretKey) {
+        // Use a zero-initialized IV for simplicity
+        memset(iv_, 0, AES_BLOCK_SIZE);
+    }
 
     std::string generateActivationCode(const std::string& customerName, const std::string& expirationDate) {
         std::string dataToEncrypt = customerName + expirationDate;
@@ -39,7 +43,7 @@ private:
         unsigned char* ciphertext;
 
         ctx = EVP_CIPHER_CTX_new();
-        EVP_EncryptInit_ex(ctx, EVP_aes_256_ecb(), nullptr, reinterpret_cast<const unsigned char*>(secretKey_.c_str()), nullptr);
+        EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), nullptr, reinterpret_cast<const unsigned char*>(secretKey_.c_str()), iv_);
 
         ciphertext = static_cast<unsigned char*>(OPENSSL_malloc(data.length() + AES_BLOCK_SIZE));
 
@@ -64,7 +68,7 @@ private:
         unsigned char* plaintext;
 
         ctx = EVP_CIPHER_CTX_new();
-        EVP_DecryptInit_ex(ctx, EVP_aes_256_ecb(), nullptr, reinterpret_cast<const unsigned char*>(secretKey_.c_str()), nullptr);
+        EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), nullptr, reinterpret_cast<const unsigned char*>(secretKey_.c_str()), iv_);
 
         plaintext = static_cast<unsigned char*>(OPENSSL_malloc(data.length()));
 
@@ -120,6 +124,7 @@ private:
 
 private:
     std::string secretKey_;
+    unsigned char iv_[AES_BLOCK_SIZE];
 };
 
 int main() {
