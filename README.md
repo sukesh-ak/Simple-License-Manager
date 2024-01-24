@@ -5,21 +5,26 @@ A simple license manager implementation using OpenSSL
 ```bash
 
 # On Linux - install g++ / cmake / gdb
-sudo apt update && sudo apt install build-essential gdb  
-sudo apt update && sudo apt install cmake
+> sudo apt update && sudo apt install build-essential gdb  
+> sudo apt update && sudo apt install cmake
 
 # Clone the repository
-git clone --recursive -j8 https://github.com/sukesh-ak/Simple-License-Manager.git
-cd Simple-License-Manager
+> git clone --recursive -j8 https://github.com/sukesh-ak/Simple-License-Manager.git
+> cd Simple-License-Manager
 
 # Install dependencies using vcpkg.json
-./vcpkg/vcpkg install
+> ./vcpkg/vcpkg install
 
 # Compile
-mkdir build 
-cmake -B build && cmake --build build
+> mkdir build 
+> cmake -B build && cmake --build build
 
-# Run
-./build/licensemanager
+```
 
+```bash
+# Run to see the Output
+> ./build/licensemanager 
+Generated Activation Code: 5ExlwWqGCFTNnTLI6lwCCgqlwZcQKQTITGnMIvZiFCY=
+
+Activation Code is valid.
 ```
