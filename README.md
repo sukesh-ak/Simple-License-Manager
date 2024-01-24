@@ -12,12 +12,19 @@ A Header-Only Simple License Manager implementation using OpenSSL
 > git clone --recursive -j8 https://github.com/sukesh-ak/Simple-License-Manager.git
 > cd Simple-License-Manager
 
+# On Windows, set the environment variable
+> set VCPKG_ROOT=D:\Dev\Simple-License-Manager\vcpkg
+
+# Start VSCode (will use CMakePresets.json for config)
+> code .
+
 # Install dependencies using vcpkg.json
 > ./vcpkg/vcpkg install
 
-# Compile
+# Compile & Build
 > mkdir build 
-> cmake -B build && cmake --build build
+> cmake -B build 
+> cmake --build build
 
 ```
 
