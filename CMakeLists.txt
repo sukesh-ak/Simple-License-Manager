@@ -20,3 +20,7 @@ add_executable(licensemanager ${SOURCE_FILES})
 
 # Link against the required library
 target_link_libraries(licensemanager PRIVATE OpenSSL::SSL OpenSSL::Crypto)
+
+message(STATUS "--------------Compile Info------------")
+message(STATUS "OpenSSL_VERSION: ${OPENSSL_VERSION}")
+message(STATUS "---------------------------------------")

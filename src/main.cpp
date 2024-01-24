@@ -35,6 +35,8 @@ int main() {
     std::string customerName = "John Doe";
     std::string expirationDate = "2025-01-01";
 
+    std::cout << "OpenSSL Version: " << OPENSSL_VERSION_TEXT << std::endl;
+
     // Generate activation code
     std::string activationCode = licenseManager.generateActivationCode(customerName, expirationDate);
     std::cout << "Generated Activation Code: " << activationCode << std::endl;
