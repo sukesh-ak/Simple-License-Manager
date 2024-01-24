@@ -1,0 +1,10 @@
+{
+    "name": "licensemanager",
+    "version-string": "1.0",
+    "dependencies": [
+      {
+        "name": "openssl"
+      }
+    ]
+  }
+  
